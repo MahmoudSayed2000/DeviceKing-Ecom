@@ -1,0 +1,16 @@
+﻿using Ecom.Core.Entites.Product;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ecom.Core.Interfaces
+{
+    public interface IPhotoRepository : IGenericRepository<Photo>
+    {
+        // Add any additional methods specific to Photo repository here
+        // For example:
+        // Task<Photo> GetPhotoWithDetailsAsync(int photoId);
+    }
+}
