@@ -17,6 +17,15 @@ namespace Ecom.Infrastructure.Data.Config
                 .IsRequired()
                 .HasMaxLength(30);
             builder.Property(c => c.Id).IsRequired();
+
+            builder.HasData(
+                new Category
+                {
+                    Id = 1,
+                    name = "Test Category",
+                    description = "Test Category Description"
+                }
+            );
         }
     }
 }
