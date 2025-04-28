@@ -48,10 +48,10 @@ namespace Ecom.Infrastructure.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
-            if (entity != null) // episode 7
-            {
-                _context.Entry(entity).State = EntityState.Detached;
-            }
+            //if (entity != null) // episode 7
+            //{
+            //    _context.Entry(entity).State = EntityState.Detached;
+            //}
             return entity;
         }
 
@@ -63,10 +63,10 @@ namespace Ecom.Infrastructure.Repositories
                 query = query.Include(item);
             }
             var entity = query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
-            if (entity != null) // episode 7
-            {
-                _context.Entry(entity).State = EntityState.Detached;
-            }
+            //if (entity != null) // episode 7
+            //{
+            //    _context.Entry(entity).State = EntityState.Detached;
+            //}
             return entity;
         }
 

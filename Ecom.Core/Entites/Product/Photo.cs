@@ -11,7 +11,7 @@ namespace Ecom.Core.Entites.Product
     {
         public string ImageName { get; set; }
         public int productId { get; set; }
-        [ForeignKey(nameof(productId))]
-        public virtual Product product { get; set; }
+        //[ForeignKey(nameof(productId))]
+        //public virtual Product product { get; set; }
     }
 }
