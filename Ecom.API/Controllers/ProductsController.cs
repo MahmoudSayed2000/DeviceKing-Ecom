@@ -44,7 +44,7 @@ namespace Ecom.API.Controllers
                     return BadRequest(new ResponseAPI(400, "No product found"));
                 }
                 var result = mapper.Map<ProductDTO>(product);
-                return Ok(result);  
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -71,6 +71,20 @@ namespace Ecom.API.Controllers
             {
                 await work.productRepository.UpdateAsync(updateproductDTO);
                 return Ok(new ResponseAPI(200, "Product updated successfully"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseAPI(400, ex.Message));
+            }
+        }
+        [HttpDelete("delete-product/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            try
+            {
+                var product = await work.productRepository.GetByIdAsync(id, x => x.photos, x => x.category);
+                await work.productRepository.DeleteAsync(product);
+                return Ok(new ResponseAPI(200, "Product deleted successfully"));
             }
             catch (Exception ex)
             {
