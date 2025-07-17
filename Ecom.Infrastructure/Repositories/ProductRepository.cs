@@ -25,6 +25,41 @@ namespace Ecom.Infrastructure.Repositories
             this.imageManagmentService = imageManagmentService;
         }
 
+        public async Task<IEnumerable<ProductDTO>>GetAllAsync(string sort, int? CategoryId)
+        {
+            var query = context.Products
+                .Include(x => x.category)
+                .Include(x => x.photos)
+                .AsNoTracking();
+            
+            //filtering by category Id
+            if (CategoryId.HasValue)
+                query = query.Where(x => x.categoryId == CategoryId);
+
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort.ToLower())
+                {
+                    case "priceasn":
+                        query = query.OrderBy(x => x.NewPrice);
+                        break;
+
+                    case "pricedes":
+                        query = query.OrderByDescending(x => x.NewPrice);
+                        break;
+
+                    case "category":
+                        query = query.OrderBy(x => x.category.name);
+                        break;
+
+                    default:
+                        query = query.OrderBy(x => x.name);
+                        break;
+                }
+            }
+            var result = mapper.Map<List<ProductDTO>>(query);
+            return result;
+        }
         public async Task<bool> AddAsync(AddProductDTO productDTO)
         {
             if (productDTO == null)

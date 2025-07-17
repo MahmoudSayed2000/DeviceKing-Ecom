@@ -15,15 +15,18 @@ public class BugController : BaseController
     public async Task<IActionResult> GetNotFound()
     {
         var category = await work.categoryRepository.GetByIdAsync(100);
-        if (category == null) return NotFound();
-        return Ok();
+        
+        if (category == null) 
+            return NotFound();
+        
+        return Ok(category);
     }
     [HttpGet("server-error")]
-    public async Task<IActionResult> ServerError()
+    public async Task<IActionResult> GetServerError()
     {
         var category = await work.categoryRepository.GetByIdAsync(100);
         category.name = "";
-        return Ok();
+        return Ok(category);
     }
     
     [HttpGet("bad-request/{id}")]

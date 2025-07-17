@@ -13,25 +13,21 @@ namespace Ecom.API.Controllers
         {
         }
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string sort, int? CategoryId)
         {
             try
             {
                 var products = await work.productRepository
-                    .GetAllAsync(x => x.category, x => x.photos);
-
-                var result = mapper.Map<List<ProductDTO>>(products);
-                if (products == null)
-                {
-                    return BadRequest(new ResponseAPI(400, "No products found"));
-                }
-                return Ok(result);
+                    .GetAllAsync(sort,CategoryId);
+               
+                return Ok(products);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("get-by-id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
